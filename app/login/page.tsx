@@ -31,34 +31,42 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center p-4">
-      <div className="bg-white rounded-lg shadow-2xl p-8 w-full max-w-md">
+    <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
+      {/* Grid background */}
+      <div className="absolute inset-0 opacity-5" style={{
+        backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+        backgroundSize: '50px 50px'
+      }}></div>
+      
+      <div className="glass rounded-2xl shadow-2xl p-8 w-full max-w-md relative z-10 backdrop-blur-xl border border-white/20">
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
-            <Lock className="text-blue-600" size={32} />
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-white/10 border border-white/20 rounded-2xl mb-4 shadow-lg backdrop-blur-sm">
+            <Lock className="text-white" size={36} />
           </div>
-          <h1 className="text-3xl font-bold text-gray-800 mb-2">Admin Login</h1>
-          <p className="text-gray-600">WhatsApp Billing System</p>
+          <h1 className="text-4xl font-bold text-white neon-white mb-2">
+            Admin Login
+          </h1>
+          <p className="text-white/80">WhatsApp Billing System</p>
         </div>
 
         <form onSubmit={handleLogin} className="space-y-6">
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
+            <div className="bg-white/10 border border-white/20 text-white px-4 py-3 rounded-xl text-sm backdrop-blur-sm">
               {error}
             </div>
           )}
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-semibold text-white/90 mb-2">
               Username
             </label>
             <div className="relative">
-              <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+              <User className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/60" size={20} />
               <input
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-white/50 focus:bg-white/10 transition-all duration-300 backdrop-blur-sm"
                 placeholder="Enter username"
                 required
               />
@@ -66,16 +74,16 @@ export default function Login() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-semibold text-white/90 mb-2">
               Password
             </label>
             <div className="relative">
-              <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+              <Lock className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/60" size={20} />
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-white/50 focus:bg-white/10 transition-all duration-300 backdrop-blur-sm"
                 placeholder="Enter password"
                 required
               />
@@ -84,14 +92,14 @@ export default function Login() {
 
           <button
             type="submit"
-            className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+            className="w-full flex items-center justify-center gap-2 px-4 py-4 bg-white text-black rounded-xl hover:bg-white/90 transition-all duration-300 font-semibold shadow-lg shadow-white/20 hover:shadow-xl hover:scale-105"
           >
             <LogIn size={20} />
             <span>Login</span>
           </button>
         </form>
 
-        <div className="mt-6 text-center text-sm text-gray-500">
+        <div className="mt-6 text-center text-sm text-white/60">
           <p>Mock login - any credentials will work</p>
         </div>
       </div>

@@ -35,56 +35,62 @@ export default function BillForm({ bills, onBillsChange }: BillFormProps) {
   };
 
   return (
-    <div className="space-y-4">
-      <h3 className="text-lg font-semibold mb-4">Bills</h3>
+    <div className="space-y-6">
+      <h3 className="text-2xl font-bold mb-6 text-white flex items-center gap-2 neon-white">
+        <div className="w-1 h-6 bg-white rounded-full"></div>
+        Bills
+      </h3>
       
-      <div className="space-y-3">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Water (₹)
+      <div className="space-y-4">
+        <div className="group">
+          <label className="block text-sm font-semibold text-white/90 mb-2">
+            💧 Water (₹)
           </label>
           <input
             type="number"
             value={localBills.water}
             onChange={(e) => handleChange('water', e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-white/50 focus:bg-white/10 transition-all duration-300 backdrop-blur-sm"
             min="0"
             step="0.01"
+            placeholder="0.00"
           />
         </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Electricity (₹)
+        <div className="group">
+          <label className="block text-sm font-semibold text-white/90 mb-2">
+            ⚡ Electricity (₹)
           </label>
           <input
             type="number"
             value={localBills.electricity}
             onChange={(e) => handleChange('electricity', e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-white/50 focus:bg-white/10 transition-all duration-300 backdrop-blur-sm"
             min="0"
             step="0.01"
+            placeholder="0.00"
           />
         </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Gas (₹)
+        <div className="group">
+          <label className="block text-sm font-semibold text-white/90 mb-2">
+            🔥 Gas (₹)
           </label>
           <input
             type="number"
             value={localBills.gas}
             onChange={(e) => handleChange('gas', e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-white/50 focus:bg-white/10 transition-all duration-300 backdrop-blur-sm"
             min="0"
             step="0.01"
+            placeholder="0.00"
           />
         </div>
 
-        <div className="pt-3 border-t border-gray-300">
-          <div className="flex justify-between items-center">
-            <span className="text-lg font-semibold text-gray-700">Total:</span>
-            <span className="text-2xl font-bold text-blue-600">
+        <div className="pt-4 mt-4 border-t border-white/20">
+          <div className="flex justify-between items-center p-4 bg-white/5 border border-white/10 rounded-xl backdrop-blur-sm">
+            <span className="text-lg font-semibold text-white">Total:</span>
+            <span className="text-3xl font-bold text-white neon-white">
               ₹{localBills.total.toLocaleString('en-IN')}
             </span>
           </div>

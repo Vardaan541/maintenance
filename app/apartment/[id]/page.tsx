@@ -28,10 +28,12 @@ export default function ApartmentDetail() {
 
   if (!apartment) {
     return (
-      <div className="flex min-h-screen bg-gray-100">
+      <div className="flex min-h-screen">
         <Sidebar />
-        <div className="flex-1 p-8 flex items-center justify-center">
-          <p className="text-gray-500">Apartment not found</p>
+        <div className="flex-1 p-8 flex items-center justify-center relative">
+          <div className="glass rounded-2xl p-8 text-center backdrop-blur-xl">
+            <p className="text-white text-xl font-semibold">Apartment not found</p>
+          </div>
         </div>
       </div>
     );
@@ -137,33 +139,43 @@ export default function ApartmentDetail() {
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div className="flex min-h-screen">
       <Sidebar />
-      <div className="flex-1 p-8">
-        <div className="max-w-4xl mx-auto">
+      <div className="flex-1 p-8 relative">
+        {/* Subtle grid background */}
+        <div className="absolute inset-0 opacity-5" style={{
+          backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+          backgroundSize: '50px 50px'
+        }}></div>
+        
+        <div className="max-w-6xl mx-auto relative z-10">
           {/* Header */}
-          <div className="mb-6">
+          <div className="mb-8">
             <button
               onClick={() => router.push('/')}
-              className="flex items-center gap-2 text-gray-600 hover:text-gray-800 mb-4 transition-colors"
+              className="flex items-center gap-2 text-white/80 hover:text-white mb-6 transition-all duration-300 hover:scale-105 glass px-4 py-2 rounded-xl backdrop-blur-xl border border-white/10"
             >
               <ArrowLeft size={20} />
-              <span>Back to Dashboard</span>
+              <span className="font-medium">Back to Dashboard</span>
             </button>
             
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between mb-6">
               <div>
-                <h1 className="text-3xl font-bold text-gray-800">
+                <h1 className="text-5xl font-bold mb-3 text-white neon-white">
                   Flat {apartment.flatNumber}
                 </h1>
-                <div className="mt-2 flex items-center gap-2">
+                <div className="flex items-center gap-3">
                   <div
-                    className={`w-3 h-3 rounded-full ${
-                      apartment.isPaid ? 'bg-green-500' : 'bg-red-500'
+                    className={`w-4 h-4 rounded-full animate-pulse ${
+                      apartment.isPaid 
+                        ? 'bg-green-500 shadow-lg shadow-green-500/50' 
+                        : 'bg-red-500 shadow-lg shadow-red-500/50'
                     }`}
                   />
-                  <span className="text-gray-600">
-                    {apartment.isPaid ? 'Paid' : 'Unpaid'}
+                  <span className={`font-medium text-lg ${
+                    apartment.isPaid ? 'text-green-400' : 'text-red-400'
+                  }`}>
+                    {apartment.isPaid ? '✓ Paid' : '⚠ Unpaid'}
                   </span>
                 </div>
               </div>
@@ -175,12 +187,12 @@ export default function ApartmentDetail() {
             {/* Left Column - Bills and Alerts */}
             <div className="lg:col-span-2 space-y-6">
               {/* Bills Form */}
-              <div className="bg-white rounded-lg p-6 shadow">
+              <div className="glass rounded-2xl p-6 shadow-2xl backdrop-blur-xl border border-white/10">
                 <BillForm bills={apartment.bills} onBillsChange={handleBillsChange} />
               </div>
 
               {/* Alerts */}
-              <div className="bg-white rounded-lg p-6 shadow">
+              <div className="glass rounded-2xl p-6 shadow-2xl backdrop-blur-xl border border-white/10">
                 <AlertsSection alerts={apartment.alerts} />
               </div>
 
@@ -194,13 +206,16 @@ export default function ApartmentDetail() {
               <ContactSection tenant={apartment.tenant} />
 
               {/* Action Buttons */}
-              <div className="bg-white rounded-lg p-6 shadow space-y-3">
-                <h3 className="text-lg font-semibold mb-4">Actions</h3>
+              <div className="glass rounded-2xl p-6 shadow-2xl backdrop-blur-xl space-y-3 border border-white/10">
+                <h3 className="text-xl font-bold mb-4 text-white flex items-center gap-2">
+                  <div className="w-1 h-6 bg-white rounded-full"></div>
+                  Actions
+                </h3>
                 
                 <button
                   onClick={handleSendBill}
                   disabled={isSaving}
-                  className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full flex items-center justify-center gap-2 px-4 py-4 bg-white text-black rounded-xl hover:bg-white/90 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-white/20 hover:shadow-xl hover:scale-105 font-semibold"
                 >
                   <Send size={18} />
                   <span>Send Bill via WhatsApp</span>
@@ -209,7 +224,7 @@ export default function ApartmentDetail() {
                 <button
                   onClick={handleSendReminder}
                   disabled={isSaving || apartment.isPaid}
-                  className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full flex items-center justify-center gap-2 px-4 py-4 bg-white/10 text-white border border-white/20 rounded-xl hover:bg-white/20 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl hover:scale-105 font-semibold"
                 >
                   <MessageSquare size={18} />
                   <span>Send Reminder</span>
@@ -218,7 +233,7 @@ export default function ApartmentDetail() {
                 <button
                   onClick={handleMarkAsPaid}
                   disabled={isSaving || apartment.isPaid}
-                  className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full flex items-center justify-center gap-2 px-4 py-4 bg-white/10 text-white border border-white/20 rounded-xl hover:bg-white/20 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl hover:scale-105 font-semibold"
                 >
                   <CheckCircle size={18} />
                   <span>Mark as Paid</span>

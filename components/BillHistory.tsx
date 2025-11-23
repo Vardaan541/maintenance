@@ -37,15 +37,18 @@ export default function BillHistory({ apartment }: BillHistoryProps) {
   };
 
   return (
-    <div className="bg-white rounded-lg p-6 border border-gray-200">
-      <div className="flex justify-between items-center mb-4">
-        <h3 className="text-lg font-semibold flex items-center gap-2">
-          <Calendar size={20} />
+    <div className="glass rounded-2xl p-6 shadow-2xl backdrop-blur-xl border border-white/10">
+      <div className="flex justify-between items-center mb-6">
+        <h3 className="text-xl font-bold text-white flex items-center gap-2 neon-white">
+          <div className="w-10 h-10 bg-white/10 border border-white/20 rounded-xl flex items-center justify-center">
+            <Calendar className="text-white" size={20} />
+          </div>
+          <div className="w-1 h-6 bg-white rounded-full"></div>
           Monthly Bill History
         </h3>
         <button
           onClick={exportToCSV}
-          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
+          className="flex items-center gap-2 px-4 py-2 bg-white text-black rounded-xl hover:bg-white/90 transition-all duration-300 text-sm font-semibold shadow-lg shadow-white/20 hover:scale-105"
         >
           <Download size={16} />
           Export CSV
@@ -54,47 +57,45 @@ export default function BillHistory({ apartment }: BillHistoryProps) {
 
       <div className="space-y-3">
         {apartment.billHistory.length === 0 ? (
-          <p className="text-gray-500 text-sm">No bill history available</p>
+          <p className="text-white/70 text-sm text-center py-4">No bill history available</p>
         ) : (
           apartment.billHistory.map((entry, index) => (
             <div
               key={index}
-              className={`p-4 rounded-lg border ${
+              className={`p-4 rounded-xl border backdrop-blur-sm transition-all duration-300 hover:scale-105 ${
                 entry.isPaid
-                  ? 'bg-green-50 border-green-200'
-                  : 'bg-red-50 border-red-200'
+                  ? 'bg-green-500/10 border-green-500/30 hover:border-green-400/50'
+                  : 'bg-red-500/10 border-red-500/30 hover:border-red-400/50'
               }`}
             >
-              <div className="flex justify-between items-start mb-2">
+              <div className="flex justify-between items-start mb-3">
                 <div className="flex items-center gap-2">
-                  <span className="font-semibold text-gray-700">
+                  <span className="font-bold text-white">
                     {new Date(entry.month + '-01').toLocaleDateString('en-US', {
                       month: 'long',
                       year: 'numeric',
                     })}
                   </span>
                   {entry.isPaid ? (
-                    <CheckCircle className="text-green-600" size={18} />
+                    <CheckCircle className="text-green-400" size={20} />
                   ) : (
-                    <XCircle className="text-red-600" size={18} />
+                    <XCircle className="text-red-400" size={20} />
                   )}
                 </div>
-                <span
-                  className={`font-bold ${
-                    entry.isPaid ? 'text-green-600' : 'text-red-600'
-                  }`}
-                >
+                <span className={`text-2xl font-bold ${
+                  entry.isPaid ? 'text-green-400' : 'text-red-400'
+                }`}>
                   ₹{entry.bills.total.toLocaleString('en-IN')}
                 </span>
               </div>
-              <div className="grid grid-cols-3 gap-2 text-sm text-gray-600 mb-2">
-                <div>Water: ₹{entry.bills.water}</div>
-                <div>Electricity: ₹{entry.bills.electricity}</div>
-                <div>Gas: ₹{entry.bills.gas}</div>
+              <div className="grid grid-cols-3 gap-3 text-sm text-white/80 mb-2">
+                <div className="bg-white/5 px-3 py-1.5 rounded-lg border border-white/5">💧 ₹{entry.bills.water}</div>
+                <div className="bg-white/5 px-3 py-1.5 rounded-lg border border-white/5">⚡ ₹{entry.bills.electricity}</div>
+                <div className="bg-white/5 px-3 py-1.5 rounded-lg border border-white/5">🔥 ₹{entry.bills.gas}</div>
               </div>
               {entry.paidDate && (
-                <div className="text-xs text-gray-500">
-                  Paid on: {new Date(entry.paidDate).toLocaleDateString()}
+                <div className="text-xs text-white/60 mt-2">
+                  ✓ Paid on: {new Date(entry.paidDate).toLocaleDateString()}
                 </div>
               )}
             </div>

@@ -32,45 +32,62 @@ export default function Dashboard() {
   }, [searchQuery, filter]);
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div className="flex min-h-screen">
       <Sidebar />
-      <div className="flex-1 p-8">
-        <div className="max-w-7xl mx-auto">
-          <h1 className="text-3xl font-bold mb-6 text-gray-800">Dashboard</h1>
+      <div className="flex-1 p-8 relative">
+        {/* Subtle grid background */}
+        <div className="absolute inset-0 opacity-5" style={{
+          backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+          backgroundSize: '50px 50px'
+        }}></div>
+        
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="mb-8">
+            <h1 className="text-5xl font-bold mb-2 text-white neon-white">
+              Dashboard
+            </h1>
+            <p className="text-gray-400 text-lg">Manage apartment bills and payments</p>
+          </div>
           
           <SearchBar onSearch={setSearchQuery} onFilterChange={setFilter} />
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6 mb-8">
             {filteredApartments.length === 0 ? (
-              <div className="col-span-full text-center py-12 text-gray-500">
-                No apartments found matching your criteria.
+              <div className="col-span-full text-center py-12 glass rounded-2xl text-white border border-white/10">
+                <p className="text-lg">No apartments found matching your criteria.</p>
               </div>
             ) : (
-              filteredApartments.map((apartment) => (
-                <ApartmentCard key={apartment.id} apartment={apartment} />
+              filteredApartments.map((apartment, index) => (
+                <div
+                  key={apartment.id}
+                  className="animate-fade-in"
+                  style={{ animationDelay: `${index * 0.05}s` }}
+                >
+                  <ApartmentCard apartment={apartment} />
+                </div>
               ))
             )}
           </div>
 
-          <div className="mt-8 p-4 bg-white rounded-lg shadow">
-            <div className="grid grid-cols-3 gap-4 text-center">
-              <div>
-                <div className="text-2xl font-bold text-gray-800">
+          <div className="glass rounded-2xl p-6 shadow-2xl backdrop-blur-xl border border-white/10">
+            <div className="grid grid-cols-3 gap-6 text-center">
+              <div className="p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+                <div className="text-4xl font-bold text-white mb-1 neon-white">
                   {mockApartments.length}
                 </div>
-                <div className="text-sm text-gray-600">Total Flats</div>
+                <div className="text-sm text-gray-300 font-medium">Total Flats</div>
               </div>
-              <div>
-                <div className="text-2xl font-bold text-green-600">
+              <div className="p-4 rounded-xl bg-white/5 border border-white/20 hover:bg-white/10 transition-colors">
+                <div className="text-4xl font-bold text-white mb-1 neon-white">
                   {mockApartments.filter((apt) => apt.isPaid).length}
                 </div>
-                <div className="text-sm text-gray-600">Paid</div>
+                <div className="text-sm text-gray-300 font-medium">Paid</div>
               </div>
-              <div>
-                <div className="text-2xl font-bold text-red-600">
+              <div className="p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+                <div className="text-4xl font-bold text-white mb-1 neon-white">
                   {mockApartments.filter((apt) => !apt.isPaid).length}
                 </div>
-                <div className="text-sm text-gray-600">Unpaid</div>
+                <div className="text-sm text-gray-300 font-medium">Unpaid</div>
               </div>
             </div>
           </div>
